@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fsn_dropwatch/screens/home_screen.dart';
+import 'package:fsn_dropwatch/screens/alert_screen.dart';
 import 'package:fsn_dropwatch/screens/leak_history_screen.dart';
 import 'package:fsn_dropwatch/screens/analytics_screen.dart';
 import 'package:fsn_dropwatch/screens/devices_screen.dart';
+import 'package:fsn_dropwatch/screens/notifications_screen.dart';
 import 'package:fsn_dropwatch/screens/settings_screen.dart';
+import 'package:fsn_dropwatch/screens/splash_screen.dart';
 import 'package:fsn_dropwatch/utils/constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase, notifications, etc. here
   runApp(const DropWatchApp());
 }
 
@@ -17,6 +22,7 @@ class DropWatchApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FSN DropWatch',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.background,
@@ -26,7 +32,11 @@ class DropWatchApp extends StatelessWidget {
           background: AppColors.background,
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const SplashScreen(),
+      routes: {
+        '/home': (context) => const MainNavigationScreen(),
+        '/alert': (context) => const AlertScreen(),
+      },
     );
   }
 }
@@ -89,13 +99,4 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       ),
     );
   }
-}
-
-class AppColors {
-  static const Color primary = Color(0xFF00D4AA);
-  static const Color secondary = Color(0xFF1A1A1A);
-  static const Color background = Color(0xFFF5F5F5);
-  static const Color success = Color(0xFF4CAF50);
-  static const Color warning = Color(0xFFFF6B6B);
-  static const Color info = Color(0xFF2196F3);
 }
